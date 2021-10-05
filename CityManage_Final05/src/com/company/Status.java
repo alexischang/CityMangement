@@ -9,7 +9,7 @@ public class Status {
     private int time;
     private Resource resource = new Resource();
     private Unit unit = new Unit();
-    private Zombie zombie = new Zombie();
+    private ZombieArmy zombie = new ZombieArmy();
     private ArrayList<Building> buildingList = new ArrayList<Building>();
     private Input input = new Input();
     // private int buildPeople;
@@ -38,7 +38,7 @@ public class Status {
         return unit;
     }
 
-    public Zombie getZombie() {
+    public ZombieArmy getZombie() {
         return zombie;
     }
 
