@@ -33,6 +33,7 @@ public class AirFactory extends Building {
         //升級剩餘時間
         setUpgradeNeedTime(getUpgradeResetTime());
         //生產飛機頻率
+        setGenFrequency(3);
     }
 
     @Override
