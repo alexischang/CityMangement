@@ -25,10 +25,30 @@ public class Building {
     private Resource effectResource;
     private int genFrequency;
 
-    public Building() {
+    //refactor
+    public Building(int id, String name, int life, Resource buildResource, int buildTime, Resource upgradeResource, 
+                    int upgradeTime, int buildCivilLvl, int upgradeCivilLvl) {
+        //建築編號
+        setNumber(id);
+        //建築名稱
+        setName(name);
+        //建築生命值
+        setLife(life);
+        //建造所需資源
+        setBuildResource(buildResource);
+        //建造所需時間
+        setInitialBuildTime(buildTime);
+        //升級所需資源
+        setUpgradeResource(upgradeResource);
+        //升級所需時間
+        setUpgradeResetTime(upgradeTime);
+        //建造需要文明等級
+        setNeedCivilLevel(buildCivilLvl);
+        //升級需要文明等級
+        setUpNeedCivilLevel(upgradeCivilLvl);
+
         setBuildingLevel(1);
         setBuildCheck(BuildCheck.BUILDABLE);
-        setNeedCivilLevel(1);
         setBuildTime(-1);
         setUpgradeCheck(UpgradeCheck.NOTUPGRADEABLE);
         setOnOff(false);
@@ -86,7 +106,7 @@ public class Building {
 
     //可重複升級
     public void upgradeReset() {
-        setUpgradeNeedTime(upgradeResetTime);
+        setUpgradeNeedTime();
         setUpgradeCheck(UpgradeCheck.UPGRADEABLE);
         //可更改下一次升級資源
     }
@@ -102,7 +122,7 @@ public class Building {
     public void buildReset() {
         setBuildCheck(BuildCheck.BUILDABLE);
         setUpgradeCheck(UpgradeCheck.NOTUPGRADEABLE);
-        setBuildNeedTime(initialBuildTime);
+        setBuildNeedTime();
         setOnOff(false);
     }
 
@@ -114,12 +134,12 @@ public class Building {
     }
 
     //印出建造，升級資訊
-    public void printBuild() {
-
+    public StringBuilder buildInfo() {
+        return null;
     }
 
-    public void printUpgrade() {
-
+    public StringBuilder upgradeInfo() {
+        return null;
     }
 
 
@@ -187,16 +207,19 @@ public class Building {
         return initialBuildTime;
     }
 
+    //refactor
     public void setInitialBuildTime(int initialBuildTime) {
         this.initialBuildTime = initialBuildTime;
+        this.buildNeedTime = initialBuildTime;
     }
 
     public int getBuildNeedTime() {
         return buildNeedTime;
     }
 
-    public void setBuildNeedTime(int buildNeedTime) {
-        this.buildNeedTime = buildNeedTime;
+    //refactor
+    public void setBuildNeedTime() {
+        this.buildNeedTime = initialBuildTime;
     }
 
     public int getBuildTime() {
@@ -243,8 +266,8 @@ public class Building {
         return upgradeNeedTime;
     }
 
-    public void setUpgradeNeedTime(int upgradeNeedTime) {
-        this.upgradeNeedTime = upgradeNeedTime;
+    public void setUpgradeNeedTime() {
+        this.upgradeNeedTime = upgradeResetTime;
     }
 
     public int getUpgradeResetTime() {
@@ -253,6 +276,7 @@ public class Building {
 
     public void setUpgradeResetTime(int upgradeResetTime) {
         this.upgradeResetTime = upgradeResetTime;
+        this.upgradeNeedTime = upgradeResetTime;
     }
 
     public boolean isOnOff() {

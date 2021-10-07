@@ -115,7 +115,7 @@ public class ZombieArmy {
 
     public void airStrike(Unit unit, ArrayList<Building> buildingList) throws InterruptedException {
         //殭屍空中攻擊
-        Blacksmith airCraft = ((Blacksmith) buildingList.get(5));
+        Arsenal airCraft = ((Arsenal) buildingList.get(5));
         int airValue = getZombieAirValue();
         if (airValue >= airCraft.getAircraftLife() * unit.getAircraftCount() + unit.getVillagerCount()) {
             //1.飛機全數墜毀 + 市民全數死亡，房屋遭受攻擊
@@ -166,7 +166,7 @@ public class ZombieArmy {
     public void landStrike(Unit unit, ArrayList<Building> buildingList) throws InterruptedException {
         //放入 單位(內有村民、士兵、飛機 數量)、所有建築物目前狀態
         int landValue = getZombieLandValue();//拿出這一波的殭屍攻擊力
-        Blacksmith army = ((Blacksmith) buildingList.get(5));//拿出現在的軍營(內有士兵、飛機的生命與等級)
+        Arsenal army = ((Arsenal) buildingList.get(5));//拿出現在的軍營(內有士兵、飛機的生命與等級)
         if (landValue >= army.getArmyLife() * unit.getArmyCount() + unit.getVillagerCount()) {
             //1.士兵全數死亡 + 市民全數死亡
             //房屋遭受攻擊

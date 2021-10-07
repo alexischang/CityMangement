@@ -21,7 +21,7 @@ public class Status {
         buildingList.add(new Barracks());
         buildingList.add(new LumberCamp());
         buildingList.add(new MiningCamp());
-        buildingList.add(new Blacksmith());
+        buildingList.add(new Arsenal());
         buildingList.add(new GasCamp());
         buildingList.add(new AirFactory());
     }
@@ -175,7 +175,7 @@ public class Status {
     public void villagerIncrease() {
         House house = (House) buildingList.get(0);
         int rate = house.getRate();
-        int frequency = house.getGenFrequency();
+        int frequency = house.getGenFrequency(); 
         if (isEnough(house.getEffectResource()) &&
                 house.isOnOff() &&
                 house.getBuildCheck() == Building.BuildCheck.UNBUILDABLE &&
@@ -248,12 +248,12 @@ public class Status {
                     building.upgrade();
                     System.out.println(building.getName() + "已升級完畢\n");
                 } else if (building.getUpgradeNeedTime() == 0 && i == 5) { //arsenal 有兩個科技故單獨處理
-                    if (((Blacksmith) building).isArmyIsUpgrading()) {
-                        ((Blacksmith) building).upgradeArmy();
+                    if (((Arsenal) building).isArmyIsUpgrading()) {
+                        ((Arsenal) building).upgradeArmy();
                         System.out.println("士兵科技已升級完畢\n");
                     }
-                    if (((Blacksmith) building).isAirCraftIsUpgrading()) {
-                        ((Blacksmith) building).upgradeAircraft();
+                    if (((Arsenal) building).isAirCraftIsUpgrading()) {
+                        ((Arsenal) building).upgradeAircraft();
                         System.out.println("飛機科技已升級完畢\n");
                     }
                 }
@@ -376,9 +376,9 @@ public class Status {
             System.out.println("1:升級士兵 2:升級戰鬥機");
             int choose = input.numberInput(1, 2);
             if (choose == 1) {
-                ((Blacksmith) buildingList.get(opt - 1)).setArmyIsUpgrading(true);
+                ((Arsenal) buildingList.get(opt - 1)).setArmyIsUpgrading(true);
             } else {
-                ((Blacksmith) buildingList.get(opt - 1)).setAirCraftIsUpgrading(true);
+                ((Arsenal) buildingList.get(opt - 1)).setAirCraftIsUpgrading(true);
             }
         } else {
             resource.reduceResource(buildingList.get(opt - 1).getUpgradeResource());
@@ -463,7 +463,8 @@ public class Status {
     public void showBuilding() {
         System.out.println("《建築物編號和功能介紹》");
         for (int i = 0; i < buildingList.size(); i++) {
-            buildingList.get(i).printBuild();
+            // buildingList.get(i).printBuild();
+            System.out.println(buildingList.get(i).buildInfo().toString());
         }
     }
 
@@ -473,7 +474,8 @@ public class Status {
     public void showUpgrade() {
         System.out.println("《建築物編號和升級功能介紹》");
         for (int i = 0; i < buildingList.size(); i++) {
-            buildingList.get(i).printUpgrade();
+            // buildingList.get(i).printUpgrade();
+            System.out.println(buildingList.get(i).upgradeInfo().toString());
         }
 
     }
@@ -519,12 +521,12 @@ public class Status {
                 "\t市民生產速率: " + ((House) buildingList.get(0)).getRate());
         System.out.println("總士兵數: " + unit.getArmyCount() +
                 "\t士兵生產速率: " + ((Barracks) buildingList.get(2)).getRate() +
-                "\t士兵等級: " + ((Blacksmith) buildingList.get(5)).getArmyLevel() +
-                "\t士兵數值: " + ((Blacksmith) buildingList.get(5)).getArmyLife() +
+                "\t士兵等級: " + ((Arsenal) buildingList.get(5)).getArmyLevel() +
+                "\t士兵數值: " + ((Arsenal) buildingList.get(5)).getArmyLife() +
                 "\n總飛機數: " + unit.getAircraftCount() +
                 "\t飛機生產速率: " + ((AirFactory) buildingList.get(7)).getRate() +
-                "\t飛機等級: " + ((Blacksmith) buildingList.get(5)).getAircraftLevel() +
-                "\t飛機數值: " + ((Blacksmith) buildingList.get(5)).getAircraftLife());
+                "\t飛機等級: " + ((Arsenal) buildingList.get(5)).getAircraftLevel() +
+                "\t飛機數值: " + ((Arsenal) buildingList.get(5)).getAircraftLife());
         System.out.println("\n閒置市民: " + unit.getVillagerCount() +
                 "\t建造人數: " + getBuildPeople() +
                 "\n現有木材: " + resource.getWood() +
